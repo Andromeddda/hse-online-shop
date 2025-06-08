@@ -9,11 +9,11 @@
         <version>3.3.1</version>
     </parent>
 
-    <artifactId>payment-service</artifactId>
+    <artifactId>orders-service</artifactId>
     <groupId>hse.andromeddda</groupId>
     <version>1.0-SNAPSHOT</version>
 
-    <name>payment-service</name>
+    <name>orders-service</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

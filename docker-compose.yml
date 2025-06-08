@@ -11,6 +11,12 @@ services:
         networks:
             - default
 
+    orders-service:
+        build: ./orders-service
+        ports: [ "8083:8083" ]
+        networks:
+            - default
+
     postgres:
         image: postgres:14
         environment:
