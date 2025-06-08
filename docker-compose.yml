@@ -1,14 +1,21 @@
 services:
-  api-gateway:
-    build: ./api-gateway
-    ports: ["8081:8081"]
-    networks:
-      - default
-  postgres:
-    image: postgres:14
-    environment:
-      POSTGRES_DB: storage
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-    networks:
-      - default
+    api-gateway:
+        build: ./api-gateway
+        ports: ["8081:8081"]
+        networks:
+            - default
+
+    payment-service:
+        build: ./payment-service
+        ports: ["8082:8082"]
+        networks:
+            - default
+
+    postgres:
+        image: postgres:14
+        environment:
+            POSTGRES_DB: storage
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+        networks:
+            - default
