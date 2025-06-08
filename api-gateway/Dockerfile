@@ -4,8 +4,13 @@ RUN      mkdir -p /app
 COPY    . /app/
 WORKDIR /app
 
-RUN     mvn install package
+RUN     mvn clean install -DskipTests
+
+FROM openjdk:17-slim-buster AS executor
+
+WORKDIR /app
+COPY    --from=builder /app/target/*.jar app.jar
 
 EXPOSE 8081
 
-ENTRYPOINT ["mvn", "spring-boot:run"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
