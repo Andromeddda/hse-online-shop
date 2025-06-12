@@ -31,7 +31,7 @@ public class OrdersService
         /* Create new order */
         Order order = new Order(request.userId(), request.amount());
 
-        /* Save order to Database*/
+        /* Save order to DB*/
         orderRepository.save(order);
 
         /* Create message for Kafka */
@@ -41,10 +41,33 @@ public class OrdersService
 
         String payload = objectMapper.writeValueAsString(paymentRequest);
 
-        /* Save message to Outbox Database */
+        /* Save message to Outbox DB */
         OrderOutboxMessage outboxMessage = new OrderOutboxMessage(payload, String.valueOf(order.getId()));
         orderOutboxRepository.save(outboxMessage);
 
         return order;
+    }
+
+    @Transactional
+    @SneakyThrows
+    public void updateOrderStatus(PaymentOutcome outcome)
+    {
+        /* Get order from DB by id*/
+        Order order = orderRepository.findById(outcome.orderId());
+            .orElseThrow(() -> new IllegalStateException("Order not found with id: " + outcome.orderId()));
+
+        /* Define new status */
+        OrderStatus newStatus = null;
+        if ("SUCCESS".equals(outcome.status()))
+            newStatus = OrderStatus.FINISHED;
+        else
+            newStatus = OrderStatus.CANCELLED;
+
+        /* Update order data */
+        order.setStatus(newStatus);
+        order.setUpdatedAt(LocalDateTime.now());
+
+        /* Save updated data (idempotence operation) */
+        orderRepository.save(order);
     }
 }
