@@ -7,45 +7,36 @@ import lombok.Setter;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
-import java.util.UUID;
-import java.time.LocalDateTime;
-
 /*
-    Класс - строка таблицы с аутбокс-сообщениями (retryable-таски),
-    которые надо отправить брокеру сообщений (кафке)
+    class OrderOutboxMessage - row of table "order_outbox"
+    Fields:
+        id, payload, topic,  messageKey
 */
-
 @Entity
 @Table(name = "order_outbox")
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class OrderOutboxMessage
 {
-    /*
-        Тут должно быть уникальное ID аутбокс-сообщения ()
-     */
+    /* id */
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    /*
-        Тут должно быть содержание REST-запроса в формате json
-    */
+    /* jsoned REST-request  */
     @Column(columnDefinition = "TEXT", nullable = false)
     private String payload;
 
-    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private OrderOutboxStatus status;
+    private String messageKey;
+
+    // TODO: decide if add topic or not
 
     /*
-
-    Это я пока не знаю зачем
-
-    @Column(nullable = false)
-    private LocalDateTime createTime;
-
-    @Column
-    private LocalDateTime updateTime;
-
+        Constructor
     */
+    public OrderOutboxMessage(String payload, String key)
+    {
+        this.messageKey = key;
+        this.payload = payload;
+    }
 }
