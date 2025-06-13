@@ -5,7 +5,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
+
+import java.time.LocalDateTime;
 
 /*
     class OrderOutboxMessage - row of table "order_outbox"
@@ -14,7 +15,7 @@ import lombok.AllArgsConstructor;
 */
 @Entity
 @Table(name = "order_outbox")
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@Getter @Setter @NoArgsConstructor
 public class OrderOutboxMessage
 {
     /* id */
@@ -26,17 +27,31 @@ public class OrderOutboxMessage
     @Column(columnDefinition = "TEXT", nullable = false)
     private String payload;
 
+    /* key for Kafka*/
     @Column(nullable = false)
     private String messageKey;
 
-    // TODO: decide if add topic or not
+    /* creation timestamp */
+    @Column(nullable = false, updatable = false, name = "created_at")
+    private LocalDateTime createdAt;
+
+    /* response timestamp (schedule if null) */
+    @Column(name = "processed_at")
+    private LocalDateTime processedAt;
+
+    /* topic for Kafka Listener */
+    @Column(nullable = false, name = "topic")
+    private String topic;
 
     /*
         Constructor
     */
-    public OrderOutboxMessage(String payload, String key)
+    public OrderOutboxMessage(String payload, String key, String topic)
     {
-        this.messageKey = key;
         this.payload = payload;
+        this.messageKey = key;
+        this.createdAt = LocalDateTime.now();
+        this.processedAt = null;
+        this.topic = topic;
     }
 }

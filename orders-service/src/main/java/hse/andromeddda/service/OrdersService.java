@@ -50,7 +50,7 @@ public class OrdersService
         String payload = objectMapper.writeValueAsString(paymentRequest);
 
         /* Save message to Outbox DB */
-        OrderOutboxMessage outboxMessage = new OrderOutboxMessage(payload, String.valueOf(order.getId()));
+        OrderOutboxMessage outboxMessage = new OrderOutboxMessage(payload, String.valueOf(order.getId()), "new-order");
         orderOutboxRepository.save(outboxMessage);
 
         return order;

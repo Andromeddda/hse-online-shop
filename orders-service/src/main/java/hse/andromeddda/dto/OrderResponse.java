@@ -5,8 +5,8 @@ import java.time.LocalDateTime;
 import hse.andromeddda.model.OrderStatus;
 
 /*
-    Data Transfer Object (DTO) from OrdersService to client.
-    Response on creating an order.
+    Produced by ORDERS SERVICE
+    Consumed by CLIENT
 */
 public record OrderResponse(
         Long orderId,

@@ -3,8 +3,8 @@ package hse.andromeddda.dto;
 import java.math.BigDecimal;
 
 /*
-    Data Transfer Object (DTO) from OrdersService to PaymentService.
-    Request on paying an order.
+    Produced by ORDERS SERVICE
+    Consumed by PAYMENT SERVICE
 */
 public record PaymentRequest(
         String messageId,
