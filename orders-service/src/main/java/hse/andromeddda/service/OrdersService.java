@@ -16,6 +16,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+/*
+    Facade for transaction with order DB and order outbox
+*/
 @Service
 @RequiredArgsConstructor
 public class OrdersService
@@ -24,6 +27,11 @@ public class OrdersService
     private final OrderOutboxRepository orderOutboxRepository;
     private final ObjectMapper objectMapper;
 
+    /*
+        Argument:       DTO of "create order" request
+        Return value:   DB order entity
+        Summary:        Create a record in DB and an outbox request in one transaction.
+    */
     @Transactional
     @SneakyThrows
     public Order createOrder(CreateOrderRequest request)
@@ -48,12 +56,16 @@ public class OrdersService
         return order;
     }
 
+    /*
+        Argument:   DTO of payment service's response
+        Summary:    Update the status on order payment in orders DB in one transaction
+    */
     @Transactional
     @SneakyThrows
     public void updateOrderStatus(PaymentOutcome outcome)
     {
         /* Get order from DB by id*/
-        Order order = orderRepository.findById(outcome.orderId());
+        Order order = orderRepository.findById(outcome.orderId())
             .orElseThrow(() -> new IllegalStateException("Order not found with id: " + outcome.orderId()));
 
         /* Define new status */
@@ -69,5 +81,16 @@ public class OrdersService
 
         /* Save updated data (idempotence operation) */
         orderRepository.save(order);
+    }
+
+    public List<Order> getOrdersByUserId(Long userId)
+    {
+        return orderRepository.findByUserId(userId);
+    }
+
+    public Order getOrderById(Long orderId)
+    {
+        return orderRepository.findById(orderId)
+                .orElseThrow(() -> new IllegalStateException("Order not found with id: " + orderId));
     }
 }
