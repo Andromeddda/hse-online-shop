@@ -22,7 +22,7 @@
         <main-class>hse.andromeddda.OrdersServiceApplication</main-class>
 
         <spring-cloud.version>2023.0.3</spring-cloud.version>
-        <spring-version>6.2.2</spring-version>
+        <spring-version>6.1.10</spring-version>
     </properties>
 
     <dependencyManagement>
@@ -46,11 +46,11 @@
 
     <dependencies>
         <!-- https://mvnrepository.com/artifact/jakarta.persistence/jakarta.persistence-api -->
-        <dependency>
-            <groupId>jakarta.persistence</groupId>
-            <artifactId>jakarta.persistence-api</artifactId>
-            <version>3.2.0</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>jakarta.persistence</groupId>-->
+<!--            <artifactId>jakarta.persistence-api</artifactId>-->
+<!--            <version>3.2.0</version>-->
+<!--        </dependency>-->
 
         <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
         <dependency>
@@ -122,6 +122,11 @@
           <version>${spring-version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
+        </dependency>
 
         <dependency>
           <groupId>org.junit.jupiter</groupId>

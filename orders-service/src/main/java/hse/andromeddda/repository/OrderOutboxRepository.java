@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface OrderOutboxRepository extends JpaRepository<OrderOutboxMessage, Long>
 {
-    @Query("SELECT * FROM order_outbox WHERE processed_at IS NULL ORDER BY id ASC")
+    @Query("SELECT o FROM OrderOutboxMessage o WHERE o.processedAt IS NULL ORDER BY id ASC")
     List<OrderOutboxMessage> findUnprocessed();
 }
