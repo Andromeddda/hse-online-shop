@@ -26,13 +26,13 @@ public class PaymentInboxMessage
     @Id
     private String messageId;
 
-    /*  process if null */
-    @Column(nullable = false)
-    private LocalDateTime processedAt;
+//    /*  process if null */
+//    @Column
+//    private LocalDateTime processedAt;
 
     public PaymentInboxMessage(String messageId)
     {
         this.messageId = messageId;
-        this.processedAt = null;
+//        this.processedAt = null;
     }
 }

@@ -10,6 +10,8 @@ import org.springframework.stereotype.Component;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;   /* for logging */
+import lombok.SneakyThrows;
+
 
 /*
     Listener for new orders
@@ -22,10 +24,11 @@ public class PaymentKafkaListener
     private final PaymentService paymentService;
     private final ObjectMapper objectMapper;
 
+    @SneakyThrows
     @KafkaListener(topics = "new-order", containerFactory = "kafkaListenerContainerFactory")
-    public void listenForPaymentRequests(String requestString)
+    public void listenForPaymentRequests(PaymentRequest request)
     {
-        PaymentRequest request = objectMapper.readValue(requestString, PaymentRequest.class);
+//        PaymentRequest request = objectMapper.readValue(requestString, PaymentRequest.class);
 
         /* log event */
         log.info("Received payment request for orderId: {}", request.orderId());
