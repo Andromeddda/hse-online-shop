@@ -26,9 +26,9 @@ public class PaymentKafkaListener
 
     @SneakyThrows
     @KafkaListener(topics = "new-order", containerFactory = "kafkaListenerContainerFactory")
-    public void listenForPaymentRequests(PaymentRequest request)
+    public void listenForPaymentRequests(String requestString)
     {
-//        PaymentRequest request = objectMapper.readValue(requestString, PaymentRequest.class);
+        PaymentRequest request = objectMapper.readValue(requestString, PaymentRequest.class);
 
         /* log event */
         log.info("Received payment request for orderId: {}", request.orderId());

@@ -8,7 +8,7 @@
 	},
 	"item": [
 		{
-			"name": "http://localhost:8081/api/payments/account",
+			"name": "create acc 1",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -38,7 +38,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:8081/api/payments/deposit",
+			"name": "deposit 10 to acc 1",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -68,7 +68,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:8081/api/payments/balance/1",
+			"name": "balance of acc 1",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -90,7 +90,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:8081/api/orders/user/1",
+			"name": "orders of acc 1",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -112,7 +112,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:8081/api/orders",
+			"name": "acc 1 order amount 2",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -141,7 +141,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:8081/api/orders/1",
+			"name": "order n.1",
 			"request": {
 				"method": "GET",
 				"header": [],

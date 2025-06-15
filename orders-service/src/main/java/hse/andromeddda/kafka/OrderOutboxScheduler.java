@@ -51,7 +51,7 @@ public class OrderOutboxScheduler
                     .send(message.getTopic(), message.getMessageKey(), message.getPayload())
                     .whenComplete((result, ex) -> {
                         if (ex == null)
-                            log.info("Message {} successfully outboxed to topic {}", message.getId(), message.getTopic());
+                            log.info("Message {} successfully outboxed to topic {}. Content: \"{}\"", message.getId(), message.getTopic(), message.getPayload());
                         else
                             log.error("Failed to outbox message {} to topic {}: {}", message.getId(), message.getTopic(), ex.getMessage());
                     });
