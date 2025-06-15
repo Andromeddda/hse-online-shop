@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 /*
     DTO for API
 */
-public record CreateAccountRequest(
+public record DepositAccountRequest(
         Long userId,
         BigDecimal amount
 )

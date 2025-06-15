@@ -45,13 +45,6 @@
     </dependencyManagement>
 
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/jakarta.persistence/jakarta.persistence-api -->
-<!--        <dependency>-->
-<!--            <groupId>jakarta.persistence</groupId>-->
-<!--            <artifactId>jakarta.persistence-api</artifactId>-->
-<!--            <version>3.2.0</version>-->
-<!--        </dependency>-->
-
         <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -120,6 +113,12 @@
           <groupId>org.springframework</groupId>
           <artifactId>spring-context</artifactId>
           <version>${spring-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka_2.13</artifactId>
+            <version>4.0.0</version>
         </dependency>
 
         <dependency>

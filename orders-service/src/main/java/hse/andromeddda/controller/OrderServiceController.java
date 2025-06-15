@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 
 import hse.andromeddda.dto.*; /* CreateOrderRequest, OrderResponse, PaymentRequest, PaymentOutcome */
-import hse.andromeddda.dto.OrderResponse;
 import hse.andromeddda.service.OrdersService;
 import hse.andromeddda.model.Order;
 

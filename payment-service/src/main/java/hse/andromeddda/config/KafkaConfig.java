@@ -1,6 +1,6 @@
 package hse.andromeddda.config;
 
-import hse.andromeddda.dto.PaymentRequestDto;
+import hse.andromeddda.dto.*;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
@@ -21,11 +21,11 @@ import java.util.Map;
 public class KafkaConfig
 {
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, PaymentRequestDto> kafkaListenerContainerFactory(
-            ConsumerFactory<String, PaymentRequestDto> consumerFactory)
+    public ConcurrentKafkaListenerContainerFactory<String, PaymentRequest> kafkaListenerContainerFactory(
+            ConsumerFactory<String, PaymentRequest> consumerFactory)
     {
         /* create factory */
-        ConcurrentKafkaListenerContainerFactory<String, PaymentRequestDto> factory
+        ConcurrentKafkaListenerContainerFactory<String, PaymentRequest> factory
                 = new ConcurrentKafkaListenerContainerFactory<>();
 
         factory.setConsumerFactory(consumerFactory);
