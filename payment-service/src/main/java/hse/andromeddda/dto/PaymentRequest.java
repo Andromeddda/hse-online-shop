@@ -1,5 +1,7 @@
 package hse.andromeddda.dto;
+
 import java.math.BigDecimal;
+
 
 /*
     DTO for Kafka

@@ -6,7 +6,7 @@ WORKDIR /app
 
 RUN     mvn clean install -DskipTests
 
-FROM openjdk:17-slim-buster AS executor
+FROM    eclipse-temurin:17-jdkr AS executor
 
 WORKDIR /app
 COPY    --from=builder /app/target/*.jar app.jar
