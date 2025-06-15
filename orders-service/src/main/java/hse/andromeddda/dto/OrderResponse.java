@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import hse.andromeddda.model.OrderStatus;
 
 /*
+    DTO for API
     Produced by ORDERS SERVICE
     Consumed by CLIENT
 */

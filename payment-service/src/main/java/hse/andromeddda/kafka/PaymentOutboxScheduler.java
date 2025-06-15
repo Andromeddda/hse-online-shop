@@ -14,6 +14,9 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 import java.time.LocalDateTime;
 
+/*
+    Scheduler for sending payment outcomes
+*/
 @Component
 @RequiredArgsConstructor
 @Slf4j
@@ -22,7 +25,10 @@ public class PaymentOutboxScheduler
     private final PaymentOutboxRepository outboxRepository;
     private final KafkaTemplate<String, String> kafkaTemplate;
 
-    @Scheduled(fixedDelay = 10000) /* scheduled every 10 seconds */
+    /*
+        Scheduled every 10 seconds
+    */
+    @Scheduled(fixedDelay = 10000)
     @Transactional
     public void processOutbox()
     {
@@ -30,9 +36,8 @@ public class PaymentOutboxScheduler
         List<PaymentOutboxMessage> messages = outboxRepository.getUnprocessed();
 
         /* no outox messages - return */
-        if (messages.isEmpty()) {
+        if (messages.isEmpty())
             return;
-        }
 
         /* log */
         log.info("Found {} messages in outbox to send.", messages.size());

@@ -28,6 +28,7 @@ public class OrdersService
     private final ObjectMapper objectMapper;
 
     /*
+        Create order request from API
         Argument:       DTO of "create order" request
         Return value:   DB order entity
         Summary:        Create a record in DB and an outbox request in one transaction.

@@ -3,6 +3,7 @@ package hse.andromeddda.dto;
 import java.math.BigDecimal;
 
 /*
+    DTO for Kafka
     Produced by ORDERS SERVICE
     Consumed by PAYMENT SERVICE
 */

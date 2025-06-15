@@ -18,16 +18,15 @@ import java.time.LocalDateTime;
 @Getter @Setter @NoArgsConstructor
 public class OrderOutboxMessage
 {
-    /* id */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    /* jsoned REST-request  */
+    /* Body  */
     @Column(columnDefinition = "TEXT", nullable = false)
     private String payload;
 
-    /* key for Kafka*/
+    /*  Kafka key */
     @Column(nullable = false)
     private String messageKey;
 

@@ -26,18 +26,19 @@ public class PaymentOutboxMessage
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    /* Topic for Kafka Listener */
-    @Column(nullable = false)
-    private String topic;
+    /* Body */
+    @Column(columnDefinition = "TEXT", nullable = false)
+    private String payload;
 
     /* Kafka key*/
     @Column(nullable = false)
     private String messageKey;
 
-    /* Body */
-    @Column(columnDefinition = "TEXT", nullable = false)
-    private String payload;
+    /* Topic for Kafka Listener */
+    @Column(nullable = false)
+    private String topic;
 
+    /* Send time (schedule if null) */
     @Column
     private LocalDateTime processedAt;
 

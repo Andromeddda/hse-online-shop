@@ -12,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;   /* for logging */
 import lombok.SneakyThrows;
 
-
 /*
     Listener for new orders
 */

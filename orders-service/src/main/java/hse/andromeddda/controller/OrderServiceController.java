@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class OrderServiceController
 {
-    /* facade for DB and Outbox */
+    /* Transactional facade for DB and Outbox */
     private final OrdersService ordersService;
 
     /*
