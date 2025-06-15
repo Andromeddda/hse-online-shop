@@ -20,7 +20,6 @@ public class KafkaConfig
         ConcurrentKafkaListenerContainerFactory<String, PaymentOutcome> factory
                 = new ConcurrentKafkaListenerContainerFactory<>();
 
-
         factory.setConsumerFactory(consumerFactory);
         return factory;
     }

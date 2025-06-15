@@ -1,5 +1,7 @@
 package hse.andromeddda.kafka;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import hse.andromeddda.service.PaymentService;
 import hse.andromeddda.dto.PaymentRequest;
 
@@ -18,10 +20,13 @@ import lombok.extern.slf4j.Slf4j;   /* for logging */
 public class PaymentKafkaListener
 {
     private final PaymentService paymentService;
+    private final ObjectMapper objectMapper;
 
     @KafkaListener(topics = "new-order", containerFactory = "kafkaListenerContainerFactory")
-    public void listenForPaymentRequests(PaymentRequest request)
+    public void listenForPaymentRequests(String requestString)
     {
+        PaymentRequest request = objectMapper.readValue(requestString, PaymentRequest.class);
+
         /* log event */
         log.info("Received payment request for orderId: {}", request.orderId());
 
