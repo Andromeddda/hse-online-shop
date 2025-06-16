@@ -1,45 +1,142 @@
-**Edit a file, create a new file, and clone from Bitbucket in under 2 minutes**
+# Online shop
 
-When you're done, you can delete the content in this README and update the file with details for others getting started with your repository.
+* Контрольная работа #3 для курса "Конструирование программного обеспечения", ВШЭ ФКН ПИ, 2 курс.
 
-*We recommend that you open this README in another tab as you perform the tasks below. You can [watch our video](https://youtu.be/0ocf7u76WSo) for a full demo of all the steps in this tutorial. Open the video in a new tab to avoid leaving Bitbucket.*
+* Big homework #3 for "Software Engineering" course, HSE FCS SE, 2nd year
 
----
+## Requirements
 
-## Edit a file
+- docker
+- docker-compose
+- Postman (for testing)
+- open ports: 8081, 8082, 8083, 5432, 9092, 2181
 
-You’ll start by editing this README file to learn how to edit a file in Bitbucket.
+## Building and running
 
-1. Click **Source** on the left side.
-2. Click the README.md link from the list of files.
-3. Click the **Edit** button.
-4. Delete the following text: *Delete this line to make a change to the README from Bitbucket.*
-5. After making your change, click **Commit** and then **Commit** again in the dialog. The commit page will open and you’ll see the change you just made.
-6. Go back to the **Source** page.
+Для сборки проекта:
 
----
+```shell
+docker compose build
+```
 
-## Create a file
+Для запуска проекта (все логи будут выведены в терминал):
 
-Next, you’ll add a new file to this repository.
+```shell
+docker compose up
+```
 
-1. Click the **New file** button at the top of the **Source** page.
-2. Give the file a filename of **contributors.txt**.
-3. Enter your name in the empty file space.
-4. Click **Commit** and then **Commit** again in the dialog.
-5. Go back to the **Source** page.
+Для запуска проекта в фоновом режиме:
+```shell
+docker compose up -d
+```
 
-Before you move on, go ahead and explore the repository. You've already seen the **Source** page, but check out the **Commits**, **Branches**, and **Settings** pages.
+Для остановки проекта, запущенного в фоновом режиме:
+```shell
+docker compose stop
+```
 
----
+## API
 
-## Clone a repository
+Сетевой интерфейс поддерживает следующую функиональность:
 
-Use these steps to clone from SourceTree, our client for using the repository command-line free. Cloning allows you to work on your files locally. If you don't yet have SourceTree, [download and install first](https://www.sourcetreeapp.com/). If you prefer to clone from the command line, see [Clone a repository](https://confluence.atlassian.com/x/4whODQ).
+### Payment Service
 
-1. You’ll see the clone button under the **Source** heading. Click that button.
-2. Now click **Check out in SourceTree**. You may need to create a SourceTree account or log in.
-3. When you see the **Clone New** dialog in SourceTree, update the destination path and name if you’d like to and then click **Clone**.
-4. Open the directory you just created to see your repository’s files.
+**1. Создание аккаунта**
+```
+POST http://localhost:8081/api/payments/account
+Content-Type: application/json
 
-Now that you're more familiar with your Bitbucket repository, go ahead and add a new file locally. You can [push your change back to Bitbucket with SourceTree](https://confluence.atlassian.com/x/iqyBMg), or you can [add, commit,](https://confluence.atlassian.com/x/8QhODQ) and [push from the command line](https://confluence.atlassian.com/x/NQ0zDQ).
+{ "userId": 123 }
+```
+
+Пример ответа (200 OK):
+```
+{ 
+  "userId": 123, 
+  "balance": 10.0 
+}
+```
+
+**2. Пополнение счёта:**
+```
+POST http://localhost:8081/api/payments/deposit
+Content-Type: application/json
+
+{ "userId": 123, "amount": 10.0 }
+```
+
+Пример ответа (200 OK):
+```
+{ 
+  "userId": 123, 
+  "balance": 10.0 
+}
+```
+
+**3. Просмотр баланса:**
+```
+GET http://localhost:8081/api/payments/balance/1
+```
+
+Пример ответа (200 OK):
+```
+{ 
+  "userId": 123, 
+  "balance": 10.0 
+}
+```
+
+### Order Service
+
+**4. Создание заказа:**
+```
+POST http://localhost:8081/api/orders
+Content-Type: application/json
+
+{ "userId": 123, "amount": 4.0 }
+```
+
+Пример ответа (200 OK):
+```
+{ 
+  "orderId": 1, 
+  "userId": 123, 
+  "amount": 4.0, 
+  "status": "CREATED", 
+  "createdAt": "1889-04-20T18:30:00.000+00:00"
+}
+```
+
+**5. Просмотр всех заказов пользователя:**
+```
+GET http://localhost:8081/api/orders/user/123
+```
+
+Пример ответа (200 OK):
+```
+[
+  { 
+    "orderId": 1, 
+    "userId": 123, 
+    "amount": 4.0, 
+    "status": "FINISHED", 
+    "createdAt": "1889-04-20T18:30:00.000+00:00"
+  }
+]
+```
+
+**6. Просмотр информации по заказу:**
+```
+GET http://localhost:8081/api/orders/1
+```
+
+Пример ответа (200 OK):
+```
+{ 
+  "orderId": 1, 
+  "userId": 123, 
+  "amount": 4.0, 
+  "status": "FINISHED", 
+  "createdAt": "1889-04-20T18:30:00.000+00:00"
+}
+```
